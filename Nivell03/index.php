@@ -1,28 +1,25 @@
 <?php
 
 include 'CouponGenerator.php';
-
-$newBMW1 = new BmwCouponGenerator;
-$newBMW2 = new BmwCouponGenerator;
-$newBMW3 = new BmwCouponGenerator;
+include 'Coupon.php';
 
 
-$newMercedes1 = new MercedesCouponGenerator;
-$newMercedes2 = new MercedesCouponGenerator;
-$newMercedes3 = new MercedesCouponGenerator;
+function couponObjectGenerator($car){
+    if($car == "bmw") {
+        $carObj = new bmwCouponGenerator;
+    } else if($car == "mercedes") {
+        $carObj = new mercedesCouponGenerator;
+    }
+      
+    return $carObj;
+}
 
+$car = "bmw";
+$carObj = couponObjectGenerator($car);
+$couponGenerator = new couponGenerator($carObj);
+echo $couponGenerator->getCoupon();
 
-$newBMW1->addSeasonDiscount();
-$newBMW2->addStockDiscount();
-
-$newBMW1->couponGenerator();
-$newBMW2->couponGenerator();
-$newBMW3->couponGenerator();
-
-$newMercedes1->addSeasonDiscount();
-$newMercedes1->addStockDiscount();
-$newMercedes2->addSeasonDiscount();
-
-$newMercedes1->couponGenerator();
-$newMercedes2->couponGenerator();
-$newMercedes3->couponGenerator();
+$car = "mercedes";
+$carObj = couponObjectGenerator($car);
+$couponGenerator = new couponGenerator($carObj);
+echo $couponGenerator->getCoupon();

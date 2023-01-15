@@ -1,59 +1,43 @@
 <?php
 
-interface CarCouponGenerator {
-    public function addSeasonDiscount();
-    public function addStockDiscount();
-    public function couponGenerator();
+interface carCouponGenerator {
+    function addSeasonDiscount();
+    function addStockDiscount();
 }
 
-class BmwCouponGenerator {
 
+class bmwCouponGenerator implements carCouponGenerator {
     private $discount = 0;
     private $isHighSeason = false;
-    private $bigStock = false;
-
-
-    public function addSeasonDiscount(){
-        $this->isHighSeason = !$this->isHighSeason;
-    }
-
-    public function addStockDiscount(){
-        $this->bigStock = !$this->bigStock;
-
-    }
-
-    public function couponGenerator() {
-        if($this->isHighSeason) {
-            $this->discount += 5;
-        }
-        if($this->bigStock) {
-            $this->discount += 7;
-        }
-        echo "Get {$this->discount}% off the price of your new BMW!." . '<br>';
-    }
-}
-
-class MercedesCouponGenerator {
-    private $discount = 0;
-    private $isHighSeason = false;
-    private $bigStock = false;
-
-    public function addSeasonDiscount(){
-        $this->isHighSeason = !$this->isHighSeason;
-    }
-
-    public function addStockDiscount(){
-        $this->bigStock = !$this->bigStock;
+    private $bigStock = true;
         
+    public function addSeasonDiscount() {
+        if(!$this->isHighSeason) return $this->discount += 5;
+            return $this->discount +=0;
+    
+    }
+        
+    public function addStockDiscount() {
+        if($this->bigStock) return $this->discount += 7;
+            return $this->discount +=0;
     }
 
-    public function couponGenerator() {
-        if($this->isHighSeason) {
-            $this->discount += 5;
-        }
-        if($this->bigStock) {
-            $this->discount += 7;
-        }
-        echo "Get {$this->discount}% off the price of your new Mercedes!." . '<br>';
+}
+
+class mercedesCouponGenerator implements carCouponGenerator {
+    private $discount = 0;
+    private $isHighSeason = false;
+    private $bigStock = true;
+        
+    public function addSeasonDiscount() {
+        if(!$this->isHighSeason) return $this->discount += 4;
+            return $this->discount;
+    
     }
+        
+    public function addStockDiscount() {
+        if($this->bigStock) return $this->discount += 10;
+            return $this->discount;
+    }
+    
 }
